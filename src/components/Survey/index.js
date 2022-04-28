@@ -31,12 +31,26 @@ function SlideNextButton() {
 }
 
 function Survey() {
+  const ageList = ["0-18", "18-30", "30-45", "45-60", "+60"];
   const [value, setValue] = useState("");
-  const formik = useFormik({
+  const { handleSubmit, handleChange, values } = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
+      city: "",
+      state: "",
+      age: "",
+      gender: "",
+      isAlone: "",
+      category: "",
+      place1: "",
+      place2: "",
+      place3: "",
+      place4: "",
+      place5: "",
+      place6: "",
+      place7: "",
+      place8: "",
+      place9: "",
+      place10: "",
     },
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
@@ -45,7 +59,7 @@ function Survey() {
 
   return (
     <>
-      <form id="myform" onSubmit={formik.handleSubmit}></form>
+      <form id="myform" onSubmit={handleSubmit}></form>
       <Swiper
         direction={"vertical"}
         onSlideChange={() => console.log("slide change")}
@@ -69,8 +83,30 @@ function Survey() {
           <SurveyInner mdTitle="Kendi hikayeni planlamanı istiyoruz." />
         </SwiperSlide>
         <SwiperSlide>
+          <SurveyInner mdTitle="Hazırsan sorulara başlayalım." />
+        </SwiperSlide>
+        <SwiperSlide>
           <SurveyInner mdTitle="Bla bla bla flan!">
-            <TextField
+            <label htmlFor="city-state">
+              Gezintiye başlamak için şehir ve ilçe seç.
+            </label>
+            <input
+              name="city"
+              value={values.city}
+              type="text"
+              placeholder="Şehir"
+              onChange={handleChange}
+            />
+
+            <input
+              name="state"
+              value={values.state}
+              type="text"
+              placeholder="İlçe"
+              onChange={handleChange}
+            />
+
+            {/* <TextField
               autoComplete="new-password"
               className="text-field"
               id="standard-basic"
@@ -81,34 +117,137 @@ function Survey() {
               name="firstName"
               type="text"
               onChange={formik.handleChange}
-              value={formik.values.firstName}
+              value={formik.values.city}
+            /> */}
+          </SurveyInner>
+        </SwiperSlide>
+        <SwiperSlide>
+          <SurveyInner mdTitle="Güzel." />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SurveyInner mdTitle="Seni biraz daha yakından tanımak istiyoruz." />
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <SurveyInner>
+            <label htmlFor="age">
+            Lütfen yaşını seç.
+            </label>
+            <select
+              name="age"
+              value={values.age}
+              type="select"
+              placeholder="Bir şeyler yaz..."
+              onChange={handleChange}
+            >
+              <option>{ageList[0]}</option>
+              <option>{ageList[1]}</option>
+              <option>{ageList[2]}</option>
+              <option>{ageList[3]}</option>
+              <option>{ageList[4]}</option>
+            </select>
+          </SurveyInner>
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <SurveyInner mdTitle="Bla bla bla flan!">
+            <label htmlFor="city">
+              Gezintiye başlamak için şehir ve ilçe seç.
+            </label>
+            <input
+              name="city"
+              value={values.city}
+              type="select"
+              placeholder="Bir şeyler yaz..."
+              onChange={handleChange}
+            />
+          </SurveyInner>
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <SurveyInner mdTitle="Bla bla bla flan!">
+            <label htmlFor="city">
+              Gezintiye başlamak için şehir ve ilçe seç.
+            </label>
+            <input
+              name="city"
+              value={values.city}
+              type="select"
+              placeholder="Bir şeyler yaz..."
+              onChange={handleChange}
             />
           </SurveyInner>
         </SwiperSlide>
         <SwiperSlide>
           <SurveyInner mdTitle="Bla bla bla flan!">
-            <FormControl
-              sx={{ m: 1, minWidth: 120, backgroundColor: "white" }}
-              size="small"
-            >
-              <InputLabel id="demo-select-small">Age</InputLabel>
-              <Select
-                labelId="demo-select-small"
-                id="demo-select-small"
-                value={value}
-                label="Age"
-                onChange={(e) => {
-                  setValue(e.target.value);
-                }}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
+            <label htmlFor="city">
+              Gezintiye başlamak için şehir ve ilçe seç.
+            </label>
+            <input
+              name="city"
+              value={values.city}
+              type="select"
+              placeholder="Bir şeyler yaz..."
+              onChange={handleChange}
+            />
+          </SurveyInner>
+        </SwiperSlide>
+        <SwiperSlide>
+          <SurveyInner mdTitle="Bla bla bla flan!">
+            <label htmlFor="city">
+              Gezintiye başlamak için şehir ve ilçe seç.
+            </label>
+            <input
+              name="city"
+              value={values.city}
+              type="select"
+              placeholder="Bir şeyler yaz..."
+              onChange={handleChange}
+            />
+          </SurveyInner>
+        </SwiperSlide>
+        <SwiperSlide>
+          <SurveyInner mdTitle="Bla bla bla flan!">
+            <label htmlFor="city">
+              Gezintiye başlamak için şehir ve ilçe seç.
+            </label>
+            <input
+              name="city"
+              value={values.city}
+              type="select"
+              placeholder="Bir şeyler yaz..."
+              onChange={handleChange}
+            />
+          </SurveyInner>
+        </SwiperSlide>
+        <SwiperSlide>
+          <SurveyInner mdTitle="Bla bla bla flan!">
+            <label htmlFor="city">
+              Gezintiye başlamak için şehir ve ilçe seç.
+            </label>
+            <input
+              name="city"
+              value={values.city}
+              type="select"
+              placeholder="Bir şeyler yaz..."
+              onChange={handleChange}
+            />
+          </SurveyInner>
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <SurveyInner mdTitle="Bla bla bla flan!">
+            <div className="question-container">
+              <h4>Lütfen yaşını seç.</h4>
+
+              <div className="age-choices">
+                <button>{ageList[0]}</button>
+                <button>{ageList[1]}</button>
+                <button>{ageList[2]}</button>
+                <button>{ageList[3]}</button>
+                <button>{ageList[4]}</button>
+              </div>
+            </div>
           </SurveyInner>
         </SwiperSlide>
         {/* <SwiperSlide>
