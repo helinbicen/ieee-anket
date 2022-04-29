@@ -1,6 +1,7 @@
 import "./index.css";
 
 import { useSwiper } from "swiper/react";
+import ArrowBack from "../../assets/arrow.svg";
 
 function SurveyInner({
   bgTitle,
@@ -20,7 +21,7 @@ function SurveyInner({
       <div className="buttons">
         {prevButtonShow !== false && (
           <button className="prev-button" onClick={() => swiper.slidePrev()}>
-            ←
+            <img src={ArrowBack} alt="arrow-back" />
           </button>
         )}
 

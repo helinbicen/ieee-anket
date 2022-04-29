@@ -1,8 +1,8 @@
 // Import Swiper React components
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useFormik } from "formik";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { getDatabase, ref, set } from "firebase/database";
 
@@ -169,7 +169,7 @@ function Survey() {
 
         <SwiperSlide>
           <SurveyInner mdTitle="Lütfen yaşını seç.">
-            <label class="custom-select" for="styledSelect1">
+            <label className="custom-select" htmlFor="styledSelect1">
               <select
                 id="styledSelect1"
                 name="age"
@@ -190,7 +190,7 @@ function Survey() {
 
         <SwiperSlide>
           <SurveyInner mdTitle="Cinsiyetini seç.">
-            <label class="custom-select" for="styledSelect2">
+            <label className="custom-select" htmlFor="styledSelect2">
               <select
                 id="styledSelect2"
                 name="gender"
@@ -209,7 +209,7 @@ function Survey() {
 
         <SwiperSlide>
           <SurveyInner mdTitle="Tatilini kiminle yapıyorsun?">
-            <label class="custom-select" for="styledSelect2">
+            <label className="custom-select" htmlFor="styledSelect2">
               <select
                 id="styledSelect3"
                 name="isAlone"
@@ -237,7 +237,7 @@ function Survey() {
 
         <SwiperSlide>
           <SurveyInner mdTitle="Şimdi tatilinin temasına karar verme zamanı.">
-            <label class="custom-select" for="styledSelect4">
+            <label className="custom-select" htmlFor="styledSelect4">
               <select
                 id="styledSelect4"
                 name="category"
@@ -278,7 +278,7 @@ function Survey() {
 
         <SwiperSlide>
           <SurveyInner title="1. Seçim">
-            <label class="custom-select" for="styledSelect5">
+            <label className="custom-select" htmlFor="styledSelect5">
               <select
                 id="styledSelect5"
                 name="place1"
@@ -296,7 +296,7 @@ function Survey() {
         </SwiperSlide>
         <SwiperSlide>
           <SurveyInner title="2. Seçim">
-            <label class="custom-select" for="styledSelect6">
+            <label className="custom-select" htmlFor="styledSelect6">
               <select
                 id="styledSelect6"
                 name="place2"
@@ -314,7 +314,7 @@ function Survey() {
         </SwiperSlide>
         <SwiperSlide>
           <SurveyInner title="3. Seçim">
-            <label class="custom-select" for="styledSelect6">
+            <label className="custom-select" htmlFor="styledSelect6">
               <select
                 id="styledSelect6"
                 name="place3"
@@ -332,7 +332,7 @@ function Survey() {
         </SwiperSlide>
         <SwiperSlide>
           <SurveyInner title="4. Seçim">
-            <label class="custom-select" for="styledSelect7">
+            <label className="custom-select" htmlFor="styledSelect7">
               <select
                 id="styledSelect6"
                 name="place4"
@@ -350,7 +350,7 @@ function Survey() {
         </SwiperSlide>
         <SwiperSlide>
           <SurveyInner title="5. Seçim">
-            <label class="custom-select" for="styledSelect8">
+            <label className="custom-select" htmlFor="styledSelect8">
               <select
                 id="styledSelect5"
                 name="place5"
@@ -368,7 +368,7 @@ function Survey() {
         </SwiperSlide>
         <SwiperSlide>
           <SurveyInner title="6. Seçim">
-            <label class="custom-select" for="styledSelect9">
+            <label className="custom-select" htmlFor="styledSelect9">
               <select
                 id="styledSelect9"
                 name="place6"
@@ -386,7 +386,7 @@ function Survey() {
         </SwiperSlide>
         <SwiperSlide>
           <SurveyInner title="7. Seçim">
-            <label class="custom-select" for="styledSelect10">
+            <label className="custom-select" htmlFor="styledSelect10">
               <select
                 id="styledSelect10"
                 name="place7"
@@ -404,7 +404,7 @@ function Survey() {
         </SwiperSlide>
         <SwiperSlide>
           <SurveyInner title="8. Seçim">
-            <label class="custom-select" for="styledSelect11">
+            <label className="custom-select" htmlFor="styledSelect11">
               <select
                 id="styledSelect11"
                 name="place8"
@@ -422,7 +422,7 @@ function Survey() {
         </SwiperSlide>
         <SwiperSlide>
           <SurveyInner title="9. Seçim">
-            <label class="custom-select" for="styledSelect12">
+            <label className="custom-select" htmlFor="styledSelect12">
               <select
                 id="styledSelect12"
                 name="place9"
@@ -440,7 +440,7 @@ function Survey() {
         </SwiperSlide>
         <SwiperSlide>
           <SurveyInner title="10. Seçim">
-            <label class="custom-select" for="styledSelect13">
+            <label className="custom-select" htmlFor="styledSelect13">
               <select
                 id="styledSelect13"
                 name="place10"
