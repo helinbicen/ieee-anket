@@ -420,6 +420,42 @@ function Survey() {
             </label>
           </SurveyInner>
         </SwiperSlide>
+        <SwiperSlide>
+          <SurveyInner title="9. Seçim">
+            <label class="custom-select" for="styledSelect12">
+              <select
+                id="styledSelect12"
+                name="place9"
+                value={values.place9}
+                type="select"
+                onChange={handleChange}
+              >
+                <option style={{ display: "none" }}></option>
+                <option>{placesList[0]}</option>
+                <option>{placesList[1]}</option>
+                <option>{placesList[2]}</option>
+              </select>
+            </label>
+          </SurveyInner>
+        </SwiperSlide>
+        <SwiperSlide>
+          <SurveyInner title="10. Seçim">
+            <label class="custom-select" for="styledSelect13">
+              <select
+                id="styledSelect13"
+                name="place10"
+                value={values.place10}
+                type="select"
+                onChange={handleChange}
+              >
+                <option style={{ display: "none" }}></option>
+                <option>{placesList[0]}</option>
+                <option>{placesList[1]}</option>
+                <option>{placesList[2]}</option>
+              </select>
+            </label>
+          </SurveyInner>
+        </SwiperSlide>
 
         <SwiperSlide>
           <SurveyInner mdTitle="Katıldığın için teşekkür ederiz." />
