@@ -462,8 +462,8 @@ function Survey() {
         </SwiperSlide>
 
         <SwiperSlide>
-          <button form="myform" type="submit">
-            Submit
+          <button form="myform" type="submit" className="submit-button">
+            GÖNDER
           </button>
         </SwiperSlide>
 

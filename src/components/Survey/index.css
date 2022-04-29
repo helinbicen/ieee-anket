@@ -99,3 +99,20 @@
   font-weight: 900;
   text-align: left;
 }
+
+.submit-button {
+  
+    margin-top: 10px;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 900;
+    border-radius: 5px;
+    font-family: "Red Hat Display", sans-serif;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    transition: 300ms all;
+  
+}
