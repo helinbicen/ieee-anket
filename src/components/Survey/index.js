@@ -110,7 +110,7 @@ function Survey() {
       >
         <SwiperSlide>
           <SurveyInner
-            bgTitle="Hoş geldin!"
+            bgTitle="Programa Hoş geldin!"
             mdTitle="Hadi seninle bir senaryoya başlayalım."
             prevButtonShow={false}
           ></SurveyInner>
@@ -232,7 +232,7 @@ function Survey() {
         </SwiperSlide>
 
         <SwiperSlide>
-          <SurveyInner mdTitle="Hava {Temperature} {Weather}." />
+          <SurveyInner mdTitle="Hava Şu An {Temperature} {Weather}." />
         </SwiperSlide>
 
         <SwiperSlide>
