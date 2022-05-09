@@ -11,6 +11,8 @@ import { useAuth } from "../../context/UserContext";
 import SurveyInner from "../SurveyInner";
 
 import WnextLogo from "../../assets/wnext.png";
+import WdataLogo from "../../assets/wdata.png";
+
 
 // Import Swiper styles
 import "swiper/css";
@@ -93,7 +95,6 @@ function Survey() {
       writeUserData(user, values);
     },
   });
-  console.log(pageCount,"sayyı")
  
 
   return (
@@ -126,8 +127,9 @@ function Survey() {
         allowTouchMove={true}
       >
         <SwiperSlide>
-          <SurveyInner 
-            bgTitle="Programa Hoş geldin!"
+          <SurveyInner
+            image={<img src={WdataLogo} alt= "WNEXT" className="wdata-logo"/>}
+            bgTitle="Hoş geldin!"
             mdTitle="Hadi seninle bir senaryoya başlayalım."
             prevButtonShow={false}
           ></SurveyInner>

@@ -142,8 +142,14 @@
   visibility: hidden;
   transform: translateY(900px);
 }
+.wdata-logo{
+  max-height: 150px;
+}
 
 @media screen and (max-width:600px) {
+  .wdata-logo{
+    width: 250px;
+  }
   .wnext-logo {
     width: 50px;
   }
