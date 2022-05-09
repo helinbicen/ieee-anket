@@ -1,5 +1,5 @@
 // Import Swiper React components
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
@@ -10,11 +10,14 @@ import { useAuth } from "../../context/UserContext";
 
 import SurveyInner from "../SurveyInner";
 
+import WnextLogo from "../../assets/wnext.png";
+
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
 import "./index.css";
+
 
 function Survey() {
   function writeUserData(user, values) {
@@ -28,7 +31,10 @@ function Survey() {
   }
 
   const { user, signOutGoogle } = useAuth();
+  
   const navigate = useNavigate();
+
+  const [pageCount, setActiveIndex] = useState(0);
 
   useEffect(() => {
     if (user.length === 0) {
@@ -87,6 +93,8 @@ function Survey() {
       writeUserData(user, values);
     },
   });
+  console.log(pageCount,"sayyı")
+ 
 
   return (
     <>
@@ -100,16 +108,25 @@ function Survey() {
           ÇIKIŞ YAP
         </button>
       </div>
+
+      <div className="image-content">
+      <img src={WnextLogo} alt= "WNEXT" className={pageCount!==0 ? ' wnext-logo' : 'wnext-logo hidden'}/>
+
+      </div>
+
+
+     
+      
       <form id="myform" onSubmit={handleSubmit}></form>
       <Swiper
         direction={"vertical"}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
+        onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+        onSwiper={(swiper) => setActiveIndex(swiper.activeIndex)}
         className="mySwiper"
         allowTouchMove={true}
       >
         <SwiperSlide>
-          <SurveyInner
+          <SurveyInner 
             bgTitle="Programa Hoş geldin!"
             mdTitle="Hadi seninle bir senaryoya başlayalım."
             prevButtonShow={false}
@@ -161,11 +178,9 @@ function Survey() {
           </SurveyInner>
         </SwiperSlide>
         <SwiperSlide>
-          <SurveyInner mdTitle="Güzel." />
+          <SurveyInner mdTitle="Güzel. Seni biraz daha yakından tanımak istiyoruz." />
         </SwiperSlide>
-        <SwiperSlide>
-          <SurveyInner mdTitle="Seni biraz daha yakından tanımak istiyoruz." />
-        </SwiperSlide>
+    
 
         <SwiperSlide>
           <SurveyInner mdTitle="Lütfen yaşını seç.">

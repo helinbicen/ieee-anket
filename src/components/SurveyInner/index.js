@@ -3,6 +3,7 @@ import "./index.css";
 import { useSwiper } from "swiper/react";
 import ArrowBack from "../../assets/arrow.svg";
 
+
 function SurveyInner({
   bgTitle,
   mdTitle,
@@ -14,6 +15,7 @@ function SurveyInner({
   const swiper = useSwiper();
   return (
     <div className="content">
+   
       {bgTitle && <div className="bg-title">{bgTitle}</div>}
       {mdTitle && <div className="md-title">{mdTitle}</div>}
       {title && <div className="title">{title}</div>}

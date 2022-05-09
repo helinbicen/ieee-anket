@@ -116,3 +116,29 @@
     transition: 300ms all;
   
 }
+
+.image-content {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  right: 0;
+  bottom:  0;
+  z-index: 99;
+  overflow: hidden;
+}
+.wnext-logo {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 75px;
+  transition: 500ms all;
+  visibility: visible;
+  opacity: 1;
+ transform: translateY(0);
+}
+
+.wnext-logo.hidden{
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(900px);
+}
