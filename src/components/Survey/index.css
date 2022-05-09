@@ -142,3 +142,9 @@
   visibility: hidden;
   transform: translateY(900px);
 }
+
+@media screen and (max-width:600px) {
+  .wnext-logo {
+    width: 50px;
+  }
+}
