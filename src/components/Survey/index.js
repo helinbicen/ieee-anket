@@ -55,10 +55,14 @@ function Survey() {
   const [cities, setCities] = useState([]);
   const [distict, setDistict] = useState([]);
   const [weather, setWeather] = useState([]);
-  
+  const [category, setCategories] = useState([]);
+  const [getplace, setGetplaces] = useState([]);
+
   const cityUrl = `https://wdatamaterial.ieeeiuc.com/api/city`;
   const distictUrl = `https://wdatamaterial.ieeeiuc.com/api/distict/`;
   const weatherUrl = `https://wdatamaterial.ieeeiuc.com/api/weather`;
+  const categoryUrl = `https://wdatamaterial.ieeeiuc.com/api/category`;
+  const getplaceUrl = `https://wdatamaterial.ieeeiuc.com/api/getplace`;
 
   useEffect(() => {
     axios
@@ -75,6 +79,24 @@ function Survey() {
       .then((res) => {
         setCities(res.data["message"]);
         //console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      axios
+      .get(categoryUrl)
+      .then((res) => {
+        setCategories(res.data["message"]);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      axios
+      .get(getplaceUrl)
+      .then((res) => {
+        setGetplaces(res.data["message"]);
+        console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -354,28 +376,9 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option style={{ display: "none" }}></option>
-                <option>{categoryList[0]}</option>
-                <option>{categoryList[1]}</option>
-                <option>{categoryList[2]}</option>
-                <option>{categoryList[3]}</option>
-                <option>{categoryList[4]}</option>
-                <option>{categoryList[5]}</option>
-                <option>{categoryList[6]}</option>
-                <option>{categoryList[7]}</option>
-                <option>{categoryList[8]}</option>
-                <option>{categoryList[9]}</option>
-                <option>{categoryList[10]}</option>
-                <option>{categoryList[11]}</option>
-                <option>{categoryList[12]}</option>
-                <option>{categoryList[13]}</option>
-                <option>{categoryList[14]}</option>
-                <option>{categoryList[15]}</option>
-                <option>{categoryList[16]}</option>
-                <option>{categoryList[17]}</option>
-                <option>{categoryList[18]}</option>
-                <option>{categoryList[19]}</option>
-                <option>{categoryList[20]}</option>
+                {category && category.map((data,index) => (
+                  <option key={index}>{data["category"]}</option>
+                ))}
               </select>
             </label>
           </SurveyInner>
