@@ -375,6 +375,7 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
+                <option style={{ display: "none" }} ></option>
                 {category && category.map((data,index) => (
                   <option key={index}>{data["main_category"]}</option>
                 ))}
