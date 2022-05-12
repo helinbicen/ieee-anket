@@ -58,52 +58,52 @@ function Survey() {
   const [category, setCategories] = useState([]);
   const [getplace, setGetplaces] = useState([]);
 
-  const cityUrl = `https://wdatamaterial.ieeeiuc.com/api/city`;
-  const distictUrl = `https://wdatamaterial.ieeeiuc.com/api/distict/`;
-  const weatherUrl = `https://wdatamaterial.ieeeiuc.com/api/weather`;
-  const categoryUrl = `https://wdatamaterial.ieeeiuc.com/api/category`;
-  const getplaceUrl = `https://wdatamaterial.ieeeiuc.com/api/getplace`;
-
+  
   useEffect(() => {
+    const cityUrl = `https://wdatamaterial.ieeeiuc.com/api/city`;
+    const weatherUrl = `https://wdatamaterial.ieeeiuc.com/api/weather`;
+    const categoryUrl = `https://wdatamaterial.ieeeiuc.com/api/category`;
+    const getplaceUrl = `https://wdatamaterial.ieeeiuc.com/api/getplace/`;
     axios
-      .get(weatherUrl)
-      .then((res) => {
-        setWeather(res.data);
-        // console.log(res.data.weather);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-      axios
-      .get(cityUrl)
-      .then((res) => {
-        setCities(res.data["message"]);
-        //console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-      axios
-      .get(categoryUrl)
-      .then((res) => {
-        setCategories(res.data["message"]);
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-      axios
-      .get(getplaceUrl)
-      .then((res) => {
-        setGetplaces(res.data["message"]);
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    .get(weatherUrl)
+    .then((res) => {
+      setWeather(res.data);
+      // console.log(res.data.weather);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    axios
+    .get(cityUrl)
+    .then((res) => {
+      setCities(res.data["message"]);
+      //console.log(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    axios
+    .get(categoryUrl)
+    .then((res) => {
+      setCategories(res.data["message"]);
+      // console.log(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    axios
+    .get(getplaceUrl+(values.city ? values.city : "ANKARA"))
+    .then((res) => {
+      setGetplaces(res.data);
+      // console.log(res.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }, []);
-
+  
   useEffect(()=>{
+    const distictUrl = `https://wdatamaterial.ieeeiuc.com/api/distict/`;
     axios
       .get(distictUrl+(values.city ? values.city : "ANKARA"))
       .then((res) => {
@@ -129,35 +129,35 @@ function Survey() {
     }
   }, [user, navigate]);
 
-  const cityList = ["İstanbul", "İzmir", "Ankara"];
-  const stateList = ["Avcılar", "Konak", "Kızılay"];
+  //const cityList = ["İstanbul", "İzmir", "Ankara"];
+  //const stateList = ["Avcılar", "Konak", "Kızılay"];
   const ageList = ["0-18", "18-30", "30-45", "45-60", "+60"];
   const genderList = ["Erkek", "Kadın", "Belirtmek istemiyorum"];
   const groupList = ["Yalnızım", "Çift", "Aile", "Arkadaşlar"];
   const transportationList = ["Toplu taşıma", "Özel araç", "Yaya"];
-  const categoryList = [
-    "Havaalanı",
-    "Eğlence Parkı",
-    "Akvaryum",
-    "Sanat",
-    "Bar",
-    "Kitapçı",
-    "Kafe",
-    "Kamp Alanı",
-    "Kilise",
-    "Belediye Binası",
-    "Kütüphane",
-    "Cami",
-    "Tiyatro",
-    "Müze",
-    "Gece Kulübü",
-    "Park",
-    "Restoran",
-    "Alışveriş Merkezi",
-    "Turistik Yerler",
-    "Hayvanat Bahçesi",
-  ];
-  const placesList = ["Galata Kulesi", "Kız Kulesi", "Beşiktaş Çarşı"];
+  //const categoryList = [
+  //  "Havaalanı",
+  //   "Eğlence Parkı",
+  //   "Akvaryum",
+  //   "Sanat",
+  //   "Bar",
+  //   "Kitapçı",
+  //   "Kafe",
+  //   "Kamp Alanı",
+  //   "Kilise",
+  //   "Belediye Binası",
+  //   "Kütüphane",
+  //   "Cami",
+  //   "Tiyatro",
+  //   "Müze",
+  //   "Gece Kulübü",
+  //   "Park",
+  //   "Restoran",
+  //   "Alışveriş Merkezi",
+  //   "Turistik Yerler",
+  //   "Hayvanat Bahçesi",
+  // ];
+  // const placesList = ["Galata Kulesi", "Kız Kulesi", "Beşiktaş Çarşı"];
 
 
   return (
@@ -273,7 +273,6 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option style={{ display: "none" }}></option>
                 <option>{ageList[0]}</option>
                 <option>{ageList[1]}</option>
                 <option>{ageList[2]}</option>
@@ -377,7 +376,7 @@ function Survey() {
                 onChange={handleChange}
               >
                 {category && category.map((data,index) => (
-                  <option key={index}>{data["category"]}</option>
+                  <option key={index}>{data["main_category"]}</option>
                 ))}
               </select>
             </label>
@@ -398,10 +397,10 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option style={{ display: "none" }}></option>
-                <option>{placesList[0]}</option>
-                <option>{placesList[1]}</option>
-                <option>{placesList[2]}</option>
+              <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
+                {getplace && getplace.map((data,index) => (
+                  <option key={index}>{data["place_name"]}</option>
+                ))}
               </select>
             </label>
           </SurveyInner>
@@ -416,10 +415,10 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option style={{ display: "none" }}></option>
-                <option>{placesList[0]}</option>
-                <option>{placesList[1]}</option>
-                <option>{placesList[2]}</option>
+                <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
+                {getplace && getplace.map((data,index) => (
+                  <option key={index}>{data["place_name"]}</option>
+                ))}
               </select>
             </label>
           </SurveyInner>
@@ -434,10 +433,10 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option style={{ display: "none" }}></option>
-                <option>{placesList[0]}</option>
-                <option>{placesList[1]}</option>
-                <option>{placesList[2]}</option>
+               <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
+                {getplace && getplace.map((data,index) => (
+                  <option key={index}>{data["place_name"]}</option>
+                ))}
               </select>
             </label>
           </SurveyInner>
@@ -452,10 +451,10 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option style={{ display: "none" }}></option>
-                <option>{placesList[0]}</option>
-                <option>{placesList[1]}</option>
-                <option>{placesList[2]}</option>
+                <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
+                {getplace && getplace.map((data,index) => (
+                  <option key={index}>{data["place_name"]}</option>
+                ))}
               </select>
             </label>
           </SurveyInner>
@@ -470,10 +469,10 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option style={{ display: "none" }}></option>
-                <option>{placesList[0]}</option>
-                <option>{placesList[1]}</option>
-                <option>{placesList[2]}</option>
+                <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
+                {getplace && getplace.map((data,index) => (
+                  <option key={index}>{data["place_name"]}</option>
+                ))}
               </select>
             </label>
           </SurveyInner>
