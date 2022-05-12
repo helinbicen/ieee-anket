@@ -32,15 +32,16 @@ function Survey() {
     });
   }
 
-  const [city, setCity] = useState([]);
+  const [weather, setWeather] = useState([]);
 
-  const cityUrl = `https://wdatamaterial.ieeeiuc.com/api/city`;
+  const weatherUrl = `https://wdatamaterial.ieeeiuc.com/api/weather`;
 
   useEffect(() => {
     axios
-      .get(cityUrl)
+      .get(weatherUrl)
       .then((res) => {
-        setCity(res.data);
+        setWeather(res.data);
+        // console.log(res.data.weather);
       })
       .catch((error) => {
         console.log(error);
@@ -168,9 +169,9 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                {city.map((city) => (
+                {/* {city.map((city) => (
                   <option key={city}>{city["city"]}</option>
-                ))}
+                ))} */}
 
                 {/* <option style={{ display: "none" }}></option>
                 <option>{cityList[0]}</option>
@@ -297,7 +298,26 @@ function Survey() {
         </SwiperSlide>
 
         <SwiperSlide>
-          <SurveyInner mdTitle="Hava Şu An {Temperature} {Weather}." />
+
+        
+        
+          <SurveyInner>
+              <h1>Hava şu an <span>{weather.weather}</span></h1>
+          </SurveyInner>
+           
+                          {/* <h1>Hava şu an  </h1>
+                      <>
+                      console.log(weather);
+                      </> */}
+            
+            
+
+
+         
+          {/* {weather.map((weather) => (
+                  <h3 key={weather}>{weather.weather}</h3> 
+                  
+                ))} */}
         </SwiperSlide>
 
         <SwiperSlide>
