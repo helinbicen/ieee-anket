@@ -13,6 +13,8 @@ import SurveyInner from "../SurveyInner";
 import WnextLogo from "../../assets/wnext.png";
 import WdataLogo from "../../assets/wdata.png";
 
+import axios from "axios";
+
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -29,6 +31,21 @@ function Survey() {
       ...values,
     });
   }
+
+  const [city, setCity] = useState([]);
+
+  const cityUrl = `https://wdatamaterial.ieeeiuc.com/api/city`;
+
+  useEffect(() => {
+    axios
+      .get(cityUrl)
+      .then((res) => {
+        setCity(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const { user, signOutGoogle } = useAuth();
 
@@ -151,10 +168,14 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option style={{ display: "none" }}></option>
+                {city.map((city) => (
+                  <option key={city}>{city["city"]}</option>
+                ))}
+
+                {/* <option style={{ display: "none" }}></option>
                 <option>{cityList[0]}</option>
                 <option>{cityList[1]}</option>
-                <option>{cityList[2]}</option>
+                <option>{cityList[2]}</option> */}
               </select>
             </label>
 
