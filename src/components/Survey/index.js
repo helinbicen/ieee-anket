@@ -31,9 +31,33 @@ function Survey() {
       ...values,
     });
   }
+  
+  const { handleSubmit, handleChange, values } = useFormik({
+    initialValues: {
+      city: "",
+      state: "",
+      age: "",
+      gender: "",
+      isAlone: "",
+      category: "",
+      place1: "",
+      place2: "",
+      place3: "",
+      place4: "",
+      place5: "",
+    },
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+      writeUserData(user, values);
+    },
+  });
 
+  const [cities, setCities] = useState([]);
+  const [distict, setDistict] = useState([]);
   const [weather, setWeather] = useState([]);
-
+  
+  const cityUrl = `https://wdatamaterial.ieeeiuc.com/api/city`;
+  const distictUrl = `https://wdatamaterial.ieeeiuc.com/api/distict/`;
   const weatherUrl = `https://wdatamaterial.ieeeiuc.com/api/weather`;
 
   useEffect(() => {
@@ -46,22 +70,30 @@ function Survey() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-  const [city, setCity] = useState([]);
-
-  const cityUrl = `https://wdatamaterial.ieeeiuc.com/api/city`;
-
-  useEffect(() => {
-    axios
+      axios
       .get(cityUrl)
       .then((res) => {
-        setCity(res.data);
-        console.log(res.data.city);
+        setCities(res.data["message"]);
+        //console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
+  useEffect(()=>{
+    axios
+      .get(distictUrl+(values.city ? values.city : "ANKARA"))
+      .then((res) => {
+        setDistict(res.data);
+        //console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    
+  },[values.city])
+
 
   const { user, signOutGoogle } = useAuth();
 
@@ -105,25 +137,6 @@ function Survey() {
   ];
   const placesList = ["Galata Kulesi", "Kız Kulesi", "Beşiktaş Çarşı"];
 
-  const { handleSubmit, handleChange, values } = useFormik({
-    initialValues: {
-      city: "",
-      state: "",
-      age: "",
-      gender: "",
-      isAlone: "",
-      category: "",
-      place1: "",
-      place2: "",
-      place3: "",
-      place4: "",
-      place5: "",
-    },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-      writeUserData(user, values);
-    },
-  });
 
   return (
     <>
@@ -184,8 +197,8 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                {city.map((city) => (
-                  <option key={city}>{city.city}</option>
+                {cities && cities.map((data,index) => (
+                  <option key={index}>{data["city"]}</option>
                 ))}
 
                 {/* <option style={{ display: "none" }}></option>
@@ -203,10 +216,9 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option style={{ display: "none" }}></option>
-                <option>{stateList[0]}</option>
-                <option>{stateList[1]}</option>
-                <option>{stateList[2]}</option>
+                {distict && distict.map((data,index) => (
+                  <option key={index}>{data}</option>
+                ))}
               </select>
             </label>
 
