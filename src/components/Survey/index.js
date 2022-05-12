@@ -22,6 +22,21 @@ import "swiper/css/pagination";
 import "./index.css";
 
 function Survey() {
+
+  const { user, signOutGoogle } = useAuth();
+
+  const navigate = useNavigate();
+
+  //Aktif sayfanın indexini tutan state
+  const [pageCount, setActiveIndex] = useState(0);
+
+  //Api'den dönen verileri tutan stateler
+  const [cities, setCities] = useState([]);
+  const [distict, setDistict] = useState([]);
+  const [weather, setWeather] = useState([]);
+  const [category, setCategories] = useState([]);
+  const [getplace, setGetplaces] = useState([]);
+
   function writeUserData(user, values) {
     const db = getDatabase();
     set(ref(db, "users/" + user.uid), {
@@ -32,6 +47,7 @@ function Survey() {
     });
   }
   
+  
   const { handleSubmit, handleChange, values } = useFormik({
     initialValues: {
       city: "",
@@ -40,6 +56,8 @@ function Survey() {
       gender: "",
       isAlone: "",
       category: "",
+      weather:"",
+      temperature:"",
       place1: "",
       place2: "",
       place3: "",
@@ -52,11 +70,7 @@ function Survey() {
     },
   });
 
-  const [cities, setCities] = useState([]);
-  const [distict, setDistict] = useState([]);
-  const [weather, setWeather] = useState([]);
-  const [category, setCategories] = useState([]);
-  const [getplace, setGetplaces] = useState([]);
+ 
 
   
   useEffect(() => {
@@ -68,6 +82,8 @@ function Survey() {
     .get(weatherUrl)
     .then((res) => {
       setWeather(res.data);
+      values.weather = res?.data?.weather
+      values.temperature = res?.data?.temperature
       // console.log(res.data.weather);
     })
     .catch((error) => {
@@ -117,11 +133,6 @@ function Survey() {
   },[values.city])
 
 
-  const { user, signOutGoogle } = useAuth();
-
-  const navigate = useNavigate();
-
-  const [pageCount, setActiveIndex] = useState(0);
 
   useEffect(() => {
     if (user.length === 0) {
@@ -219,6 +230,7 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
+                <option style={{ display: "none" }}></option>
                 {cities && cities.map((data,index) => (
                   <option key={index}>{data["city"]}</option>
                 ))}
@@ -238,6 +250,7 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
+                <option style={{ display: "none" }}></option>
                 {distict && distict.map((data,index) => (
                   <option key={index}>{data}</option>
                 ))}
@@ -352,7 +365,6 @@ function Survey() {
           <SurveyInner>
             <h1>Hava şu an <span className="weather">{weather.weather}</span> <span className="temperature">{weather.temperature}°C</span></h1>
           </SurveyInner>
-
 
 
 
@@ -488,7 +500,7 @@ function Survey() {
             form="myform"
             type="submit"
             className="submit-button"
-            onClick={() => window.location.reload()}
+            // onClick={() => window.location.reload()}
           >
             GÖNDER
           </button>
