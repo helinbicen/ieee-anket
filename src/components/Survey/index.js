@@ -47,6 +47,21 @@ function Survey() {
         console.log(error);
       });
   }, []);
+  const [city, setCity] = useState([]);
+
+  const cityUrl = `https://wdatamaterial.ieeeiuc.com/api/city`;
+
+  useEffect(() => {
+    axios
+      .get(cityUrl)
+      .then((res) => {
+        setCity(res.data);
+        console.log(res.data.city);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const { user, signOutGoogle } = useAuth();
 
@@ -169,9 +184,9 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                {/* {city.map((city) => (
-                  <option key={city}>{city["city"]}</option>
-                ))} */}
+                {city.map((city) => (
+                  <option key={city}>{city.city}</option>
+                ))}
 
                 {/* <option style={{ display: "none" }}></option>
                 <option>{cityList[0]}</option>
@@ -299,18 +314,18 @@ function Survey() {
 
         <SwiperSlide>
 
-        
-        
+
+
           <SurveyInner>
-              <h1>Hava şu an <span className="weather">{weather.weather}</span> <span className="temperature">{weather.temperature}°C</span></h1>
+            <h1>Hava şu an <span className="weather">{weather.weather}</span> <span className="temperature">{weather.temperature}°C</span></h1>
           </SurveyInner>
-           
-                       
-            
-            
 
 
-         
+
+
+
+
+
           {/* {weather.map((weather) => (
                   <h3 key={weather}>{weather.weather}</h3> 
                   
