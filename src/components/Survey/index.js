@@ -302,13 +302,10 @@ function Survey() {
         
         
           <SurveyInner>
-              <h1>Hava şu an <span>{weather.weather}</span></h1>
+              <h1>Hava şu an <span className="weather">{weather.weather}</span> <span className="temperature">{weather.temperature}°C</span></h1>
           </SurveyInner>
            
-                          {/* <h1>Hava şu an  </h1>
-                      <>
-                      console.log(weather);
-                      </> */}
+                       
             
             
 
