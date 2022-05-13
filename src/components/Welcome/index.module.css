@@ -65,16 +65,10 @@
   object-fit: contain;
 }
 
-.wdata-logo {
-  max-height: 150px;
-}
 
 @media screen and (max-width: 560px) {
   .innerContent {
     width: 75%;
   }
 
-  .wdata-logo {
-    width: 250px;
-  }
 }
