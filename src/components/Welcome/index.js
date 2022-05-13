@@ -6,6 +6,8 @@ import styles from "./index.module.css";
 
 import { useAuth } from "../../context/UserContext";
 
+import WdataLogo from "../../assets/wdata.png";
+
 function Welcome() {
   const { user, signWithGoogle } = useAuth();
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ function Welcome() {
     <div className={styles.container}>
       <div className={styles.innerContent}>
         <SurveyInner
-          bgTitle="Anketimize hoş geldin."
+          image={<img src={WdataLogo} alt="WNEXT" className="wdata-logo" />}
           title="Katılım için hızlıca giriş yap."
           nextButtonShow={false}
           prevButtonShow={false}

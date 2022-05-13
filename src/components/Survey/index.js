@@ -46,8 +46,8 @@ function Survey() {
       ...values,
     });
   }
-  
-  
+
+
   const { handleSubmit, handleChange, values } = useFormik({
     initialValues: {
       city: "",
@@ -56,8 +56,8 @@ function Survey() {
       gender: "",
       isAlone: "",
       category: "",
-      weather:"",
-      temperature:"",
+      weather: "",
+      temperature: "",
       place1: "",
       place2: "",
       place3: "",
@@ -70,58 +70,58 @@ function Survey() {
     },
   });
 
- 
 
-  
+
+
   useEffect(() => {
     const cityUrl = `https://wdatamaterial.ieeeiuc.com/api/city`;
     const weatherUrl = `https://wdatamaterial.ieeeiuc.com/api/weather`;
     const categoryUrl = `https://wdatamaterial.ieeeiuc.com/api/category`;
     const getplaceUrl = `https://wdatamaterial.ieeeiuc.com/api/getplace/`;
     axios
-    .get(weatherUrl)
-    .then((res) => {
-      setWeather(res.data);
-      values.weather = res?.data?.weather
-      values.temperature = res?.data?.temperature
-      // console.log(res.data.weather);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .get(weatherUrl)
+      .then((res) => {
+        setWeather(res.data);
+        values.weather = res?.data?.weather
+        values.temperature = res?.data?.temperature
+        // console.log(res.data.weather);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     axios
-    .get(cityUrl)
-    .then((res) => {
-      setCities(res.data["message"]);
-      //console.log(res.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .get(cityUrl)
+      .then((res) => {
+        setCities(res.data["message"]);
+        //console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     axios
-    .get(categoryUrl)
-    .then((res) => {
-      setCategories(res.data["message"]);
-      // console.log(res.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .get(categoryUrl)
+      .then((res) => {
+        setCategories(res.data["message"]);
+        // console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     axios
-    .get(getplaceUrl+(values.city ? values.city : "ANKARA"))
-    .then((res) => {
-      setGetplaces(res.data);
-      // console.log(res.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .get(getplaceUrl + (values.city ? values.city : "ANKARA"))
+      .then((res) => {
+        setGetplaces(res.data);
+        // console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     const distictUrl = `https://wdatamaterial.ieeeiuc.com/api/distict/`;
     axios
-      .get(distictUrl+(values.city ? values.city : "ANKARA"))
+      .get(distictUrl + (values.city ? values.city : "ANKARA"))
       .then((res) => {
         setDistict(res.data);
         //console.log(res.data);
@@ -129,8 +129,8 @@ function Survey() {
       .catch((error) => {
         console.log(error);
       });
-    
-  },[values.city])
+
+  }, [values.city])
 
 
 
@@ -183,7 +183,7 @@ function Survey() {
           ÇIKIŞ YAP
         </button>
       </div>
-
+  
       <div className="image-content">
         <img
           src={WnextLogo}
@@ -191,7 +191,6 @@ function Survey() {
           className={pageCount !== 0 ? " wnext-logo" : "wnext-logo hidden"}
         />
       </div>
-
       <form id="myform" onSubmit={handleSubmit}></form>
       <Swiper
         direction={"vertical"}
@@ -231,7 +230,7 @@ function Survey() {
                 onChange={handleChange}
               >
                 <option style={{ display: "none" }}></option>
-                {cities && cities.map((data,index) => (
+                {cities && cities.map((data, index) => (
                   <option key={index}>{data["city"]}</option>
                 ))}
 
@@ -251,7 +250,7 @@ function Survey() {
                 onChange={handleChange}
               >
                 <option style={{ display: "none" }}></option>
-                {distict && distict.map((data,index) => (
+                {distict && distict.map((data, index) => (
                   <option key={index}>{data}</option>
                 ))}
               </select>
@@ -388,7 +387,7 @@ function Survey() {
                 onChange={handleChange}
               >
                 <option style={{ display: "none" }} ></option>
-                {category && category.map((data,index) => (
+                {category && category.map((data, index) => (
                   <option key={index}>{data["main_category"]}</option>
                 ))}
               </select>
@@ -410,8 +409,8 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-              <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
-                {getplace && getplace.map((data,index) => (
+                <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
+                {getplace && getplace.map((data, index) => (
                   <option key={index}>{data["place_name"]}</option>
                 ))}
               </select>
@@ -429,7 +428,7 @@ function Survey() {
                 onChange={handleChange}
               >
                 <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
-                {getplace && getplace.map((data,index) => (
+                {getplace && getplace.map((data, index) => (
                   <option key={index}>{data["place_name"]}</option>
                 ))}
               </select>
@@ -446,8 +445,8 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-               <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
-                {getplace && getplace.map((data,index) => (
+                <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
+                {getplace && getplace.map((data, index) => (
                   <option key={index}>{data["place_name"]}</option>
                 ))}
               </select>
@@ -465,7 +464,7 @@ function Survey() {
                 onChange={handleChange}
               >
                 <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
-                {getplace && getplace.map((data,index) => (
+                {getplace && getplace.map((data, index) => (
                   <option key={index}>{data["place_name"]}</option>
                 ))}
               </select>
@@ -483,7 +482,7 @@ function Survey() {
                 onChange={handleChange}
               >
                 <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
-                {getplace && getplace.map((data,index) => (
+                {getplace && getplace.map((data, index) => (
                   <option key={index}>{data["place_name"]}</option>
                 ))}
               </select>
@@ -500,7 +499,7 @@ function Survey() {
             form="myform"
             type="submit"
             className="submit-button"
-            // onClick={() => window.location.reload()}
+          // onClick={() => window.location.reload()}
           >
             GÖNDER
           </button>
