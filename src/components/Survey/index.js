@@ -119,12 +119,23 @@ function Survey() {
   }, []);
 
   useEffect(() => {
+    const getplaceUrl = `https://wdatamaterial.ieeeiuc.com/api/getplace/`;
     const distictUrl = `https://wdatamaterial.ieeeiuc.com/api/distict/`;
     axios
       .get(distictUrl + (values.city ? values.city : "ANKARA"))
       .then((res) => {
         setDistict(res.data);
         //console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      axios
+      .get(getplaceUrl + (values.city ? values.city : "ANKARA"))
+      .then((res) => {
+        setGetplaces(res.data);
+        // console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
