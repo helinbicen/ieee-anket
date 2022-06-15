@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 import { getDatabase, ref, set } from "firebase/database";
 
@@ -20,6 +21,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import "./index.css";
+import "@sweetalert2/theme-dark/dark.css";
 
 function Survey() {
 
@@ -38,8 +40,9 @@ function Survey() {
   const [getplace, setGetplaces] = useState([]);
 
   function writeUserData(user, values) {
+    const sendingTime = new Date().getTime()
     const db = getDatabase();
-    set(ref(db, "users/" + user.uid), {
+    set(ref(db, "users/" + user.uid + "_" +sendingTime), {
       userId: user.uid,
       userEmail: user.email,
       userName: user.displayName,
@@ -65,8 +68,25 @@ function Survey() {
       place5: "",
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      //alert(JSON.stringify(values, null, 2));
       writeUserData(user, values);
+      Swal.fire({
+        title: 'Tebrikler!',
+        text: 'Girilen bilgiler başarıyla kaydedildi.',
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Tekrar doldur!',
+        cancelButtonText:"Çıkış yap!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload()
+        }else{
+          signOutGoogle()
+        }
+        
+      })
     },
   });
 
@@ -108,7 +128,7 @@ function Survey() {
         console.log(error);
       });
     axios
-      .get(getplaceUrl + (values.city ? values.city : "ANKARA"))
+      .get(getplaceUrl + (values.city ? values.city : "ANTALYA"))
       .then((res) => {
         setGetplaces(res.data);
         // console.log(res.data);
@@ -122,7 +142,7 @@ function Survey() {
     const getplaceUrl = `https://wdatamaterial.ieeeiuc.com/api/getplace/`;
     const distictUrl = `https://wdatamaterial.ieeeiuc.com/api/distict/`;
     axios
-      .get(distictUrl + (values.city ? values.city : "ANKARA"))
+      .get(distictUrl + (values.city ? values.city : "ANTALYA"))
       .then((res) => {
         setDistict(res.data);
         //console.log(res.data);
@@ -510,7 +530,6 @@ function Survey() {
             form="myform"
             type="submit"
             className="submit-button"
-          // onClick={() => window.location.reload()}
           >
             GÖNDER
           </button>
