@@ -1,0 +1,53 @@
+.search {
+    position: relative;
+    display: inline-block;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .searchInputs {
+    display: flex;
+    /* flex-direction: row;
+    align-items: center;
+    justify-content: center; */
+  }
+  
+  .search input {
+    background-color: transparent;
+    color: #fff;
+    font-family: "Red Hat Display", sans-serif;
+    border: 0;
+    padding: 2px 6px;
+    font-size: 14px;
+    height: 32px;
+    width: 100%;
+    border-bottom: 1px solid rgb(105, 105, 105);
+  }
+  
+  .icon {
+    height: 32px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .icon .searchIcon {
+    cursor: pointer;
+    position: absolute;
+    color: white;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 27px;
+  }
+  
+  input:focus {
+    outline: none;
+  }
+  
+  .searchIcon svg {
+    font-size: 32px;
+  }
+  

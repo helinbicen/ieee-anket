@@ -13,6 +13,7 @@ import SurveyInner from "../SurveyInner";
 
 import WnextLogo from "../../assets/wnext.png";
 import WdataLogo from "../../assets/wdata.png";
+import SearchBar from "../SearchBar";
 
 import axios from "axios";
 
@@ -316,6 +317,7 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
+                
                 <option>{ageList[0]}</option>
                 <option>{ageList[1]}</option>
                 <option>{ageList[2]}</option>
@@ -431,7 +433,9 @@ function Survey() {
         </SwiperSlide>
 
         <SwiperSlide>
+        
           <SurveyInner title="1. Seçim">
+          <SearchBar />
             <label className="custom-select" htmlFor="styledSelect5">
               <select
                 id="styledSelect5"
@@ -439,8 +443,12 @@ function Survey() {
                 value={values.place1}
                 type="select"
                 onChange={handleChange}
+                 
               >
-                <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
+                <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.
+                
+                </option>
+               
                 {getplace && getplace.map((data, index) => (
                   <option key={index}>{data["place_name"]}</option>
                 ))}
