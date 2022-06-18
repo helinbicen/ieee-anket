@@ -2,6 +2,7 @@ import "./index.css";
 
 import { useSwiper } from "swiper/react";
 import ArrowBack from "../../assets/arrow.svg";
+import Hand from "../../assets/hand.png"
 
 function SurveyInner({
   image,
@@ -11,6 +12,7 @@ function SurveyInner({
   prevButtonShow,
   nextButtonShow,
   children,
+  swipeAnimation,
 }) {
   const swiper = useSwiper();
   return (
@@ -33,6 +35,16 @@ function SurveyInner({
             DEVAM ET
           </button>
         )}
+
+   
+      </div>
+      <div className="handswipe">
+        {swipeAnimation !== false && (
+          <img src={Hand} alt="" className="handswipe" /> 
+        )
+        
+        }
+      
       </div>
     </div>
   );

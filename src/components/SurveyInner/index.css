@@ -7,8 +7,6 @@
   gap: 10px;
 }
 
-
-
 .bg-title {
   font-weight: 900;
   font-size: 49px;
@@ -23,7 +21,7 @@
   font-size: 30px;
   font-weight: 300;
 }
-.wdata-logo{
+.wdata-logo {
   max-width: 300px;
 }
 .buttons {
@@ -90,11 +88,47 @@ input[type="text"] {
   background-color: rgb(228, 228, 228);
 }
 
+/* Standard syntax */
+@keyframes swipe {
+  0% {
+    margin: 0;
+
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-10deg);
+  }
+
+  from {
+    top: 0px;
+  }
+  to {
+    top: 50px;
+  }
+}
+
+.handswipe {
+  animation: swipe 0.9s alternate infinite;
+  animation-timing-function: ease-in-out;
+
+  position: relative;
+  width: 75px;
+  left: 60%;
+  bottom: 0;
+}
+
 @media screen and (max-width: 560px) {
   .content {
     width: 75%;
   }
   .wdata-logo {
     max-width: 250px;
+  }
+
+  .handswipe {
+    /* margin-top: 300px; */
+    width: 50px;
+    left: 50%;
   }
 }
