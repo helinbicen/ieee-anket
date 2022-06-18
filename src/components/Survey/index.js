@@ -238,7 +238,7 @@ function Survey() {
             bgTitle="Hoş geldin!"
             mdTitle="Hadi seninle bir senaryoya başlayalım."
             prevButtonShow={false}
-            swipeAnimation
+            swipeAnimation={true}
           >
    
           </SurveyInner>
@@ -248,17 +248,16 @@ function Survey() {
           <SurveyInner
             mdTitle="WNEXT’in teknofest macerasında yapay zekanın bir parçası olmak için
             lütfen devam et."
-            swipeAnimation={false}
           />
         </SwiperSlide>
         <SwiperSlide>
-          <SurveyInner mdTitle="Kendi hikayeni planlamanı istiyoruz."  swipeAnimation={false}/>
+          <SurveyInner mdTitle="Kendi hikayeni planlamanı istiyoruz."  />
         </SwiperSlide>
         <SwiperSlide>
-          <SurveyInner mdTitle="Hazırsan sorulara başlayalım."  swipeAnimation={false}/>
+          <SurveyInner mdTitle="Hazırsan sorulara başlayalım."  />
         </SwiperSlide>
         <SwiperSlide>
-          <SurveyInner mdTitle="Gezintiye başlamak için şehir ve ilçe seç." swipeAnimation={false}>
+          <SurveyInner mdTitle="Gezintiye başlamak için şehir ve ilçe seç." >
             <label className="custom-select" htmlFor="styledSelect1">
               <select
                 id="styledSelect1"
@@ -310,11 +309,11 @@ function Survey() {
           </SurveyInner>
         </SwiperSlide>
         <SwiperSlide>
-          <SurveyInner mdTitle="Güzel. Seni biraz daha yakından tanımak istiyoruz." swipeAnimation={false} />
+          <SurveyInner mdTitle="Güzel. Seni biraz daha yakından tanımak istiyoruz." />
         </SwiperSlide>
 
         <SwiperSlide>
-          <SurveyInner mdTitle="Lütfen yaşını seç." swipeAnimation={false}>
+          <SurveyInner mdTitle="Lütfen yaşını seç.">
             <label className="custom-select" htmlFor="styledSelect1">
               <select
                 id="styledSelect1"
@@ -335,7 +334,7 @@ function Survey() {
         </SwiperSlide>
 
         <SwiperSlide>
-          <SurveyInner mdTitle="Cinsiyetini seç." swipeAnimation={false}>
+          <SurveyInner mdTitle="Cinsiyetini seç.">
             <label className="custom-select" htmlFor="styledSelect2">
               <select
                 id="styledSelect2"
@@ -354,7 +353,7 @@ function Survey() {
         </SwiperSlide>
 
         <SwiperSlide>
-          <SurveyInner mdTitle="Tatilini kiminle yapıyorsun?" swipeAnimation={false}>
+          <SurveyInner mdTitle="Tatilini kiminle yapıyorsun?">
             <label className="custom-select" htmlFor="styledSelect2">
               <select
                 id="styledSelect3"
@@ -374,7 +373,7 @@ function Survey() {
         </SwiperSlide>
 
         <SwiperSlide>
-          <SurveyInner mdTitle="Ulaşım şeklini seç." swipeAnimation={false}>
+          <SurveyInner mdTitle="Ulaşım şeklini seç.">
             <label className="custom-select" htmlFor="styledSelect2">
               <select
                 id="styledSelect3"
@@ -393,14 +392,14 @@ function Survey() {
         </SwiperSlide>
 
         <SwiperSlide>
-          <SurveyInner mdTitle="Hmm. Anlıyorum." swipeAnimation={false}/>
+          <SurveyInner mdTitle="Hmm. Anlıyorum."/>
         </SwiperSlide>
 
         <SwiperSlide>
 
 
 
-          <SurveyInner swipeAnimation={false}>
+          <SurveyInner>
             <h1>Hava şu an <span className="weather">{weather.weather}</span> <span className="temperature">{weather.temperature}°C</span></h1>
           </SurveyInner>
 
@@ -416,7 +415,7 @@ function Survey() {
         </SwiperSlide>
 
         <SwiperSlide>
-          <SurveyInner mdTitle="Şimdi tatilinin temasına karar verme zamanı." swipeAnimation={false}>
+          <SurveyInner mdTitle="Şimdi tatilinin temasına karar verme zamanı.">
             <label className="custom-select" htmlFor="styledSelect4">
               <select
                 id="styledSelect4"
@@ -435,12 +434,12 @@ function Survey() {
         </SwiperSlide>
 
         <SwiperSlide>
-          <SurveyInner mdTitle="Bu koşullar altında nereleri gezmek istersin?" swipeAnimation={false} />
+          <SurveyInner mdTitle="Bu koşullar altında nereleri gezmek istersin?" />
         </SwiperSlide>
 
         <SwiperSlide>
         
-          <SurveyInner title="1. Seçim" swipeAnimation={false}>
+          <SurveyInner title="1. Seçim" >
          
             <label className="custom-select" htmlFor="styledSelect5">
               <select
@@ -463,7 +462,7 @@ function Survey() {
           </SurveyInner>
         </SwiperSlide>
         <SwiperSlide>
-          <SurveyInner title="2. Seçim" swipeAnimation={false}>
+          <SurveyInner title="2. Seçim">
             <label className="custom-select" htmlFor="styledSelect6">
               <select
                 id="styledSelect6"
@@ -481,7 +480,7 @@ function Survey() {
           </SurveyInner>
         </SwiperSlide>
         <SwiperSlide>
-          <SurveyInner title="3. Seçim" swipeAnimation={false}>
+          <SurveyInner title="3. Seçim">
             <label className="custom-select" htmlFor="styledSelect6">
               <select
                 id="styledSelect6"
@@ -499,7 +498,7 @@ function Survey() {
           </SurveyInner>
         </SwiperSlide>
         <SwiperSlide>
-          <SurveyInner title="4. Seçim" swipeAnimation={false}>
+          <SurveyInner title="4. Seçim">
             <label className="custom-select" htmlFor="styledSelect7">
               <select
                 id="styledSelect6"
@@ -517,7 +516,7 @@ function Survey() {
           </SurveyInner>
         </SwiperSlide>
         <SwiperSlide>
-          <SurveyInner title="5. Seçim" swipeAnimation={false}>
+          <SurveyInner title="5. Seçim" >
             <label className="custom-select" htmlFor="styledSelect8">
               <select
                 id="styledSelect5"
@@ -536,7 +535,7 @@ function Survey() {
         </SwiperSlide>
 
         <SwiperSlide>
-          <SurveyInner mdTitle="Katıldığın için teşekkür ederiz." swipeAnimation={false} />
+          <SurveyInner mdTitle="Katıldığın için teşekkür ederiz."  />
         </SwiperSlide>
 
         <SwiperSlide>

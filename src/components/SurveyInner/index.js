@@ -39,7 +39,7 @@ function SurveyInner({
    
       </div>
       <div className="handswipe">
-        {swipeAnimation !== false && (
+        {swipeAnimation === true && (
           <img src={Hand} alt="" className="handswipe" /> 
         )
         
