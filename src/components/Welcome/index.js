@@ -6,7 +6,7 @@ import styles from "./index.module.css";
 
 import { useAuth } from "../../context/UserContext";
 
-import WdataLogo from "../../assets/wdata.png";
+import WdataLogo from "../../assets/wdata_black.png";
 
 function Welcome() {
   const { user, signWithGoogle } = useAuth();
@@ -17,6 +17,7 @@ function Welcome() {
       navigate("/survey");
     }
   }, [user, navigate]);
+
 
   return (
     <div className={styles.container}>

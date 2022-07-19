@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 import { getDatabase, ref, set } from "firebase/database";
 
@@ -12,9 +12,7 @@ import { useAuth } from "../../context/UserContext";
 import SurveyInner from "../SurveyInner";
 
 import WnextLogo from "../../assets/wnext.png";
-import WdataLogo from "../../assets/wdata.png";
-
-
+import WdataLogo from "../../assets/wdata_black.png";
 
 import axios from "axios";
 
@@ -26,7 +24,6 @@ import "./index.css";
 import "@sweetalert2/theme-dark/dark.css";
 
 function Survey() {
-
   const { user, signOutGoogle } = useAuth();
 
   const navigate = useNavigate();
@@ -42,9 +39,9 @@ function Survey() {
   const [getplace, setGetplaces] = useState([]);
 
   function writeUserData(user, values) {
-    const sendingTime = new Date().getTime()
+    const sendingTime = new Date().getTime();
     const db = getDatabase();
-    set(ref(db, "users/" + user.uid + "_" +sendingTime), {
+    set(ref(db, "users/" + user.uid + "_" + sendingTime), {
       userId: user.uid,
       userEmail: user.email,
       userName: user.displayName,
@@ -52,9 +49,9 @@ function Survey() {
     });
   }
 
-
   const { handleSubmit, handleChange, values } = useFormik({
     initialValues: {
+      plate_code: "",
       city: "",
       state: "",
       age: "",
@@ -68,44 +65,50 @@ function Survey() {
       place3: "",
       place4: "",
       place5: "",
+      place1_id: "",
+      place2_id: "",
+      place3_id: "",
+      place4_id: "",
+      place5_id: "",
     },
     onSubmit: (values) => {
       //alert(JSON.stringify(values, null, 2));
       writeUserData(user, values);
       Swal.fire({
-        title: 'Tebrikler!',
-        text: 'Girilen bilgiler başarıyla kaydedildi.',
-        icon: 'success',
+        title: "Tebrikler!",
+        text: "Girilen bilgiler başarıyla kaydedildi.",
+        icon: "success",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Tekrar doldur!',
-        cancelButtonText:"Çıkış yap!",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Tekrar doldur!",
+        cancelButtonText: "Çıkış yap!",
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.reload()
-        }else{
-          signOutGoogle()
+          window.location.reload();
+        } else {
+          signOutGoogle();
         }
-        
-      })
+      });
     },
   });
-
-
-
 
   useEffect(() => {
     const cityUrl = `https://wdatamaterial.ieeeiuc.com/api/city`;
     const weatherUrl = `https://wdatamaterial.ieeeiuc.com/api/weather`;
     const categoryUrl = `https://wdatamaterial.ieeeiuc.com/api/category`;
     const getplaceUrl = `https://wdatamaterial.ieeeiuc.com/api/getplace/`;
+
+    const selected_city = cities.find((item) => item.city === values.city);
+    const plate_code = selected_city?.plate_code;
+    values.plate_code = plate_code;
+
     axios
       .get(weatherUrl)
       .then((res) => {
         setWeather(res.data);
-        values.weather = res?.data?.weather
-        values.temperature = res?.data?.temperature
+        values.weather = res?.data?.weather;
+        values.temperature = res?.data?.temperature;
         // console.log(res.data.weather);
       })
       .catch((error) => {
@@ -115,7 +118,7 @@ function Survey() {
       .get(cityUrl)
       .then((res) => {
         setCities(res.data["message"]);
-        //console.log(res.data);
+        console.log("city url", res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -123,14 +126,13 @@ function Survey() {
     axios
       .get(categoryUrl)
       .then((res) => {
-        setCategories(res.data["message"]);
-        // console.log(res.data);
+        setCategories(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
     axios
-      .get(getplaceUrl + (values.city ? values.city : "ANTALYA"))
+      .get(getplaceUrl + (values.plate_code ? values.plate_code : 7))
       .then((res) => {
         setGetplaces(res.data);
         // console.log(res.data);
@@ -143,29 +145,28 @@ function Survey() {
   useEffect(() => {
     const getplaceUrl = `https://wdatamaterial.ieeeiuc.com/api/getplace/`;
     const distictUrl = `https://wdatamaterial.ieeeiuc.com/api/distict/`;
+
+    const selected_city = cities.find((item) => item.city === values.city);
+    const plate_code = selected_city?.plate_code;
+    values.plate_code = plate_code;
     axios
-      .get(distictUrl + (values.city ? values.city : "ANTALYA"))
+      .get(distictUrl + plate_code)
       .then((res) => {
         setDistict(res.data);
-        //console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
 
-      axios
-      .get(getplaceUrl + (values.city ? values.city : "ANKARA"))
+    axios
+      .get(getplaceUrl + plate_code)
       .then((res) => {
         setGetplaces(res.data);
-        // console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
-
-  }, [values.city])
-
-
+  }, [values.city]);
 
   useEffect(() => {
     if (user.length === 0) {
@@ -203,7 +204,6 @@ function Survey() {
   // ];
   // const placesList = ["Galata Kulesi", "Kız Kulesi", "Beşiktaş Çarşı"];
 
-
   return (
     <>
       <div className="navbar">
@@ -216,7 +216,7 @@ function Survey() {
           ÇIKIŞ YAP
         </button>
       </div>
-  
+
       <div className="image-content">
         <img
           src={WnextLogo}
@@ -236,28 +236,24 @@ function Survey() {
           <SurveyInner
             image={<img src={WdataLogo} alt="WNEXT" className="wdata-logo" />}
             bgTitle="Hoş geldin!"
-            mdTitle="Hadi seninle bir senaryoya başlayalım."
+            mdTitle="Hadi seninle bir senaryoya başlayalım. WNEXT’in teknofest macerasında yapay zekanın bir parçası olmak için
+            lütfen devam et."
             prevButtonShow={false}
-            swipeAnimation={true}
-          >
-   
-          </SurveyInner>
-          
+          />
         </SwiperSlide>
+
         <SwiperSlide>
           <SurveyInner
-            mdTitle="WNEXT’in teknofest macerasında yapay zekanın bir parçası olmak için
-            lütfen devam et."
+            bgTitle="Kendi hikayeni planlamanı istiyoruz."
+            mdTitle="Hazırsan sorulara başlayalım."
           />
         </SwiperSlide>
         <SwiperSlide>
-          <SurveyInner mdTitle="Kendi hikayeni planlamanı istiyoruz."  />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SurveyInner mdTitle="Hazırsan sorulara başlayalım."  />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SurveyInner mdTitle="Gezintiye başlamak için şehir ve ilçe seç." >
+          <SurveyInner
+            mdTitle="Gezintiye başlamak için şehir ve ilçe seç."
+            nextButtonShow={false}
+            prevButtonShow={false}
+          >
             <label className="custom-select" htmlFor="styledSelect1">
               <select
                 id="styledSelect1"
@@ -267,9 +263,10 @@ function Survey() {
                 onChange={handleChange}
               >
                 <option style={{ display: "none" }}></option>
-                {cities && cities.map((data, index) => (
-                  <option key={index}>{data["city"]}</option>
-                ))}
+                {cities &&
+                  cities.map((data, index) => (
+                    <option key={index}>{data["city"]}</option>
+                  ))}
 
                 {/* <option style={{ display: "none" }}></option>
                 <option>{cityList[0]}</option>
@@ -287,9 +284,10 @@ function Survey() {
                 onChange={handleChange}
               >
                 <option style={{ display: "none" }}></option>
-                {distict && distict.map((data, index) => (
-                  <option key={index}>{data}</option>
-                ))}
+                {distict &&
+                  distict.map((data) => (
+                    <option key={data.id}>{data.district}</option>
+                  ))}
               </select>
             </label>
 
@@ -307,12 +305,10 @@ function Survey() {
               value={formik.values.city}
             /> */}
           </SurveyInner>
-        </SwiperSlide>
-        <SwiperSlide>
+          {/* <SwiperSlide>
           <SurveyInner mdTitle="Güzel. Seni biraz daha yakından tanımak istiyoruz." />
-        </SwiperSlide>
+        </SwiperSlide> */}
 
-        <SwiperSlide>
           <SurveyInner mdTitle="Lütfen yaşını seç.">
             <label className="custom-select" htmlFor="styledSelect1">
               <select
@@ -322,7 +318,6 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                
                 <option>{ageList[0]}</option>
                 <option>{ageList[1]}</option>
                 <option>{ageList[2]}</option>
@@ -334,7 +329,11 @@ function Survey() {
         </SwiperSlide>
 
         <SwiperSlide>
-          <SurveyInner mdTitle="Cinsiyetini seç.">
+          <SurveyInner
+            mdTitle="Cinsiyetini seç."
+            nextButtonShow={false}
+            prevButtonShow={false}
+          >
             <label className="custom-select" htmlFor="styledSelect2">
               <select
                 id="styledSelect2"
@@ -350,10 +349,12 @@ function Survey() {
               </select>
             </label>
           </SurveyInner>
-        </SwiperSlide>
 
-        <SwiperSlide>
-          <SurveyInner mdTitle="Tatilini kiminle yapıyorsun?">
+          <SurveyInner
+            mdTitle="Tatilini kiminle yapıyorsun?"
+            nextButtonShow={false}
+            prevButtonShow={false}
+          >
             <label className="custom-select" htmlFor="styledSelect2">
               <select
                 id="styledSelect3"
@@ -370,9 +371,6 @@ function Survey() {
               </select>
             </label>
           </SurveyInner>
-        </SwiperSlide>
-
-        <SwiperSlide>
           <SurveyInner mdTitle="Ulaşım şeklini seç.">
             <label className="custom-select" htmlFor="styledSelect2">
               <select
@@ -392,21 +390,16 @@ function Survey() {
         </SwiperSlide>
 
         <SwiperSlide>
-          <SurveyInner mdTitle="Hmm. Anlıyorum."/>
+          <SurveyInner mdTitle="Hmm. Anlıyorum." />
         </SwiperSlide>
 
         <SwiperSlide>
-
-
-
           <SurveyInner>
-            <h1>Hava şu an <span className="weather">{weather.weather}</span> <span className="temperature">{weather.temperature}°C</span></h1>
+            <h1>
+              Hava şu an <span className="weather">{weather.weather}</span>{" "}
+              <span className="temperature">{weather.temperature}°C</span>
+            </h1>
           </SurveyInner>
-
-
-
-
-
 
           {/* {weather.map((weather) => (
                   <h3 key={weather}>{weather.weather}</h3> 
@@ -424,10 +417,12 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option style={{ display: "none" }} ></option>
-                {category && category.map((data, index) => (
-                  <option key={index}>{data["main_category"]}</option>
-                ))}
+                <option style={{ display: "none" }}></option>
+
+                {category &&
+                  category.map((data) => (
+                    <option key={data.id}>{data.category}</option>
+                  ))}
               </select>
             </label>
           </SurveyInner>
@@ -438,9 +433,11 @@ function Survey() {
         </SwiperSlide>
 
         <SwiperSlide>
-        
-          <SurveyInner title="1. Seçim" >
-         
+          <SurveyInner
+            title="1. Seçim"
+            nextButtonShow={false}
+            prevButtonShow={false}
+          >
             <label className="custom-select" htmlFor="styledSelect5">
               <select
                 id="styledSelect5"
@@ -448,21 +445,23 @@ function Survey() {
                 value={values.place1}
                 type="select"
                 onChange={handleChange}
-                 
               >
-                <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.
-                
+                <option style={{ display: "none" }}>
+                  Lütfen bir mekan seçiniz.
                 </option>
-               
-                {getplace && getplace.map((data, index) => (
-                  <option key={index}>{data["place_name"]}</option>
-                ))}
+
+                {getplace &&
+                  getplace.map((data) => (
+                    <option key={data.id}>{data["place_name"]}</option>
+                  ))}
               </select>
             </label>
           </SurveyInner>
-        </SwiperSlide>
-        <SwiperSlide>
-          <SurveyInner title="2. Seçim">
+          <SurveyInner
+            title="2. Seçim"
+            nextButtonShow={false}
+            prevButtonShow={false}
+          >
             <label className="custom-select" htmlFor="styledSelect6">
               <select
                 id="styledSelect6"
@@ -471,16 +470,21 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
-                {getplace && getplace.map((data, index) => (
-                  <option key={index}>{data["place_name"]}</option>
-                ))}
+                <option style={{ display: "none" }}>
+                  Lütfen bir mekan seçiniz.
+                </option>
+                {getplace &&
+                  getplace.map((data) => (
+                    <option key={data.id}>{data["place_name"]}</option>
+                  ))}
               </select>
             </label>
           </SurveyInner>
-        </SwiperSlide>
-        <SwiperSlide>
-          <SurveyInner title="3. Seçim">
+          <SurveyInner
+            title="3. Seçim"
+            nextButtonShow={false}
+            prevButtonShow={false}
+          >
             <label className="custom-select" htmlFor="styledSelect6">
               <select
                 id="styledSelect6"
@@ -489,16 +493,21 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
-                {getplace && getplace.map((data, index) => (
-                  <option key={index}>{data["place_name"]}</option>
-                ))}
+                <option style={{ display: "none" }}>
+                  Lütfen bir mekan seçiniz.
+                </option>
+                {getplace &&
+                  getplace.map((data) => (
+                    <option key={data.id}>{data["place_name"]}</option>
+                  ))}
               </select>
             </label>
           </SurveyInner>
-        </SwiperSlide>
-        <SwiperSlide>
-          <SurveyInner title="4. Seçim">
+          <SurveyInner
+            title="4. Seçim"
+            nextButtonShow={false}
+            prevButtonShow={false}
+          >
             <label className="custom-select" htmlFor="styledSelect7">
               <select
                 id="styledSelect6"
@@ -507,16 +516,17 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
-                {getplace && getplace.map((data, index) => (
-                  <option key={index}>{data["place_name"]}</option>
-                ))}
+                <option style={{ display: "none" }}>
+                  Lütfen bir mekan seçiniz.
+                </option>
+                {getplace &&
+                  getplace.map((data) => (
+                    <option key={data.id}>{data["place_name"]}</option>
+                  ))}
               </select>
             </label>
           </SurveyInner>
-        </SwiperSlide>
-        <SwiperSlide>
-          <SurveyInner title="5. Seçim" >
+          <SurveyInner title="5. Seçim">
             <label className="custom-select" htmlFor="styledSelect8">
               <select
                 id="styledSelect5"
@@ -525,25 +535,24 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option style={{ display: "none" }} >Lütfen bir mekan seçiniz.</option>
-                {getplace && getplace.map((data, index) => (
-                  <option key={index}>{data["place_name"]}</option>
-                ))}
+                <option style={{ display: "none" }}>
+                  Lütfen bir mekan seçiniz.
+                </option>
+                {getplace &&
+                  getplace.map((data) => (
+                    <option key={data.id}>{data["place_name"]}</option>
+                  ))}
               </select>
             </label>
           </SurveyInner>
         </SwiperSlide>
 
         <SwiperSlide>
-          <SurveyInner mdTitle="Katıldığın için teşekkür ederiz."  />
+          <SurveyInner mdTitle="Katıldığın için teşekkür ederiz." />
         </SwiperSlide>
 
         <SwiperSlide>
-          <button
-            form="myform"
-            type="submit"
-            className="submit-button"
-          >
+          <button form="myform" type="submit" className="submit-button">
             GÖNDER
           </button>
         </SwiperSlide>
