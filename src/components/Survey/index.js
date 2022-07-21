@@ -72,7 +72,6 @@ function Survey() {
       place5_id: "",
     },
     onSubmit: (values) => {
-      //alert(JSON.stringify(values, null, 2));
       writeUserData(user, values);
       Swal.fire({
         title: "Tebrikler!",
@@ -109,7 +108,6 @@ function Survey() {
         setWeather(res.data);
         values.weather = res?.data?.weather;
         values.temperature = res?.data?.temperature;
-        // console.log(res.data.weather);
       })
       .catch((error) => {
         console.log(error);
@@ -135,7 +133,6 @@ function Survey() {
       .get(getplaceUrl + (values.plate_code ? values.plate_code : 7))
       .then((res) => {
         setGetplaces(res.data);
-        // console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -236,7 +233,7 @@ function Survey() {
           <SurveyInner
             image={<img src={WdataLogo} alt="WNEXT" className="wdata-logo" />}
             bgTitle="Hoş geldin!"
-            mdTitle="Hadi seninle bir senaryoya başlayalım. WNEXT’in teknofest macerasında yapay zekanın bir parçası olmak için
+            mdTitle="WNEXT’in teknofest macerasında yapay zekanın bir parçası olmak için
             lütfen devam et."
             prevButtonShow={false}
           />
@@ -244,8 +241,8 @@ function Survey() {
 
         <SwiperSlide>
           <SurveyInner
-            bgTitle="Kendi hikayeni planlamanı istiyoruz."
-            mdTitle="Hazırsan sorulara başlayalım."
+            bgTitle="Tercihlerin bizim için önemli."
+            mdTitle="Gireceğin etkenlere göre gezmek isteyeceğin 5 mekanı seçmeni istiyoruz."
           />
         </SwiperSlide>
         <SwiperSlide>
@@ -267,11 +264,6 @@ function Survey() {
                   cities.map((data, index) => (
                     <option key={index}>{data["city"]}</option>
                   ))}
-
-                {/* <option style={{ display: "none" }}></option>
-                <option>{cityList[0]}</option>
-                <option>{cityList[1]}</option>
-                <option>{cityList[2]}</option> */}
               </select>
             </label>
 
@@ -291,24 +283,7 @@ function Survey() {
               </select>
             </label>
 
-            {/* <TextField
-              autoComplete="new-password"
-              className="text-field"
-              id="standard-basic"
-              variant="standard"
-              color="primary"
-              placeholder="Bir şeyler yaz..."
-              form="myform"
-              name="firstName"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.city}
-            /> */}
           </SurveyInner>
-          {/* <SwiperSlide>
-          <SurveyInner mdTitle="Güzel. Seni biraz daha yakından tanımak istiyoruz." />
-        </SwiperSlide> */}
-
           <SurveyInner mdTitle="Lütfen yaşını seç.">
             <label className="custom-select" htmlFor="styledSelect1">
               <select
@@ -387,10 +362,6 @@ function Survey() {
               </select>
             </label>
           </SurveyInner>
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <SurveyInner mdTitle="Hmm. Anlıyorum." />
         </SwiperSlide>
 
         <SwiperSlide>
@@ -547,9 +518,6 @@ function Survey() {
           </SurveyInner>
         </SwiperSlide>
 
-        <SwiperSlide>
-          <SurveyInner mdTitle="Katıldığın için teşekkür ederiz." />
-        </SwiperSlide>
 
         <SwiperSlide>
           <button form="myform" type="submit" className="submit-button">
