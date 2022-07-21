@@ -76,24 +76,23 @@ function Survey() {
       place5_id: "",
     },
     onSubmit: (values) => {
-      console.log(values)
-      // writeUserData(user, values);
-      // Swal.fire({
-      //   title: "Tebrikler!",
-      //   text: "Girilen bilgiler başarıyla kaydedildi.",
-      //   icon: "success",
-      //   showCancelButton: true,
-      //   confirmButtonColor: "#3085d6",
-      //   cancelButtonColor: "#d33",
-      //   confirmButtonText: "Tekrar doldur!",
-      //   cancelButtonText: "Çıkış yap!",
-      // }).then((result) => {
-      //   if (result.isConfirmed) {
-      //     window.location.reload();
-      //   } else {
-      //     signOutGoogle();
-      //   }
-      // });
+      writeUserData(user, values);
+      Swal.fire({
+        title: "Tebrikler!",
+        text: "Girilen bilgiler başarıyla kaydedildi.",
+        icon: "success",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Tekrar doldur!",
+        cancelButtonText: "Çıkış yap!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        } else {
+          signOutGoogle();
+        }
+      });
     },
   });
 
@@ -457,7 +456,6 @@ function Survey() {
                     if ( values.place1 !== "") {
                       let place = getplace.find((place)=>place["place_name"]===values.place1)
                       values.place1_id = place.id
-                      console.log("hello")
                     }
 
                     return [(<option key={data.id} value={data["place_name"]} >{data["place_name"]}</option>)] 
@@ -541,7 +539,6 @@ function Survey() {
                     if ( values.place4 !== "") {
                       let place = getplace.find((place)=>place["place_name"]===values.place4)
                       values.place4_id = place.id
-                      console.log("hello")
                     }
                     return [(<option key={data.id} value={data["place_name"]} >{data["place_name"]}</option>)] 
                   })}
@@ -565,7 +562,6 @@ function Survey() {
                     if ( values.place5 !== "") {
                       let place = getplace.find((place)=>place["place_name"]===values.place5)
                       values.place5_id = place.id
-                      console.log("hello")
                     }
                     return [(<option key={data.id} value={data["place_name"]} >{data["place_name"]}</option>)] 
                   })}
