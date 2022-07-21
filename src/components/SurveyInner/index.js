@@ -23,7 +23,9 @@ function SurveyInner({
       {title && <div className="title">{title}</div>}
       {children}
     
-      <div className="buttons">
+    {
+      (prevButtonShow !== false || nextButtonShow !== false ) && (
+        <div className="buttons">
         {prevButtonShow !== false && (
           <button className="prev-button" onClick={() => swiper.slidePrev()}>
             <img src={ArrowBack} alt="arrow-back" />
@@ -38,14 +40,18 @@ function SurveyInner({
 
    
       </div>
-      <div className="handswipe">
+
+      )
+    }
+     
         {swipeAnimation === true && (
-          <img src={Hand} alt="" className="handswipe" /> 
+          <div className="handswipe">
+              <img src={Hand} alt="" className="handswipe" /> 
+          </div>
         )
         
         }
       
-      </div>
     </div>
   );
 }

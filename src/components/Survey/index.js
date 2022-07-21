@@ -51,15 +51,19 @@ function Survey() {
 
   const { handleSubmit, handleChange, values } = useFormik({
     initialValues: {
+      weather_id: weather.id,
       plate_code: "",
       city: "",
       state: "",
       age: "",
+      age_id :"",
       gender: "",
-      isAlone: "",
+      gender_id: "",
+      group: "",
       category: "",
       weather: "",
       temperature: "",
+      transportation_id:"",
       place1: "",
       place2: "",
       place3: "",
@@ -72,23 +76,24 @@ function Survey() {
       place5_id: "",
     },
     onSubmit: (values) => {
-      writeUserData(user, values);
-      Swal.fire({
-        title: "Tebrikler!",
-        text: "Girilen bilgiler başarıyla kaydedildi.",
-        icon: "success",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Tekrar doldur!",
-        cancelButtonText: "Çıkış yap!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.reload();
-        } else {
-          signOutGoogle();
-        }
-      });
+      console.log(values)
+      // writeUserData(user, values);
+      // Swal.fire({
+      //   title: "Tebrikler!",
+      //   text: "Girilen bilgiler başarıyla kaydedildi.",
+      //   icon: "success",
+      //   showCancelButton: true,
+      //   confirmButtonColor: "#3085d6",
+      //   cancelButtonColor: "#d33",
+      //   confirmButtonText: "Tekrar doldur!",
+      //   cancelButtonText: "Çıkış yap!",
+      // }).then((result) => {
+      //   if (result.isConfirmed) {
+      //     window.location.reload();
+      //   } else {
+      //     signOutGoogle();
+      //   }
+      // });
     },
   });
 
@@ -106,8 +111,10 @@ function Survey() {
       .get(weatherUrl)
       .then((res) => {
         setWeather(res.data);
+        values.weather_id = res?.data?.id;
         values.weather = res?.data?.weather;
         values.temperature = res?.data?.temperature;
+
       })
       .catch((error) => {
         console.log(error);
@@ -234,8 +241,9 @@ function Survey() {
             image={<img src={WdataLogo} alt="WNEXT" className="wdata-logo" />}
             bgTitle="Hoş geldin!"
             mdTitle="WNEXT’in teknofest macerasında yapay zekanın bir parçası olmak için
-            lütfen devam et."
+            lütfen yukarı kaydır."
             prevButtonShow={false}
+            swipeAnimation={true}
           />
         </SwiperSlide>
 
@@ -277,9 +285,13 @@ function Survey() {
               >
                 <option style={{ display: "none" }}></option>
                 {distict &&
-                  distict.map((data) => (
-                    <option key={data.id}>{data.district}</option>
-                  ))}
+                  distict.map((data, index) =>{
+                    if ( values.state !== "") {
+                      let state_obj = distict.find((state)=>state["district"]===values.state)
+                      values.state_id = state_obj.id
+                    }
+                    return (<option key={index}>{data.district}</option>)
+                  })}
               </select>
             </label>
 
@@ -293,11 +305,15 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
-                <option>{ageList[0]}</option>
-                <option>{ageList[1]}</option>
-                <option>{ageList[2]}</option>
-                <option>{ageList[3]}</option>
-                <option>{ageList[4]}</option>
+                 {ageList &&
+                  ageList.map((data,index) => {
+                    if ( values.age !== "") {
+                      let id = ageList.indexOf(values.age)
+                      values.age_id = id + 1
+                    }
+                    return (<option key={index}>{data}</option>  )
+                  }
+                  )}
               </select>
             </label>
           </SurveyInner>
@@ -318,9 +334,15 @@ function Survey() {
                 onChange={handleChange}
               >
                 <option style={{ display: "none" }}></option>
-                <option>{genderList[0]}</option>
-                <option>{genderList[1]}</option>
-                <option>{genderList[2]}</option>
+                {genderList &&
+                  genderList.map((data,index) => {
+                    if ( values.gender !== "") {
+                      let id = genderList.indexOf(values.gender)
+                      values.gender_id = id + 1
+                    }
+                    return (<option key={index}>{data}</option>  )
+                  }
+                  )}
               </select>
             </label>
           </SurveyInner>
@@ -333,16 +355,21 @@ function Survey() {
             <label className="custom-select" htmlFor="styledSelect2">
               <select
                 id="styledSelect3"
-                name="isAlone"
-                value={values.isAlone}
+                name="group"
+                value={values.group}
                 type="select"
                 onChange={handleChange}
               >
                 <option style={{ display: "none" }}></option>
-                <option>{groupList[0]}</option>
-                <option>{groupList[1]}</option>
-                <option>{groupList[2]}</option>
-                <option>{groupList[3]}</option>
+                {groupList &&
+                  groupList.map((data,index) => {
+                    if ( values.group !== "") {
+                      let id = groupList.indexOf(values.group)
+                      values.group_id = id + 1
+                    }
+                    return (<option key={index}>{data}</option>  )
+                  }
+                  )}
               </select>
             </label>
           </SurveyInner>
@@ -356,9 +383,15 @@ function Survey() {
                 onChange={handleChange}
               >
                 <option style={{ display: "none" }}></option>
-                <option>{transportationList[0]}</option>
-                <option>{transportationList[1]}</option>
-                <option>{transportationList[2]}</option>
+                {transportationList &&
+                  transportationList.map((data,index) => {
+                    if ( values.transportation !== "") {
+                      let id = transportationList.indexOf(values.transportation)
+                      values.transportation_id = id + 1
+                    }
+                    return (<option key={index}>{data}</option>  )
+                  }
+                  )}
               </select>
             </label>
           </SurveyInner>
@@ -371,11 +404,6 @@ function Survey() {
               <span className="temperature">{weather.temperature}°C</span>
             </h1>
           </SurveyInner>
-
-          {/* {weather.map((weather) => (
-                  <h3 key={weather}>{weather.weather}</h3> 
-                  
-                ))} */}
         </SwiperSlide>
 
         <SwiperSlide>
@@ -389,11 +417,14 @@ function Survey() {
                 onChange={handleChange}
               >
                 <option style={{ display: "none" }}></option>
-
-                {category &&
-                  category.map((data) => (
-                    <option key={data.id}>{data.category}</option>
-                  ))}
+                 {category &&
+                  category.map((data) => {
+                    if ( values.place3 !== "") {
+                      let cat_obj = category.find((cat)=>cat["category"]===values.category)
+                      values.category_id = cat_obj.id
+                    }
+                    return [(<option key={data.id}>{data.category}</option>)] 
+                  })}
               </select>
             </label>
           </SurveyInner>
@@ -409,6 +440,7 @@ function Survey() {
             nextButtonShow={false}
             prevButtonShow={false}
           >
+            
             <label className="custom-select" htmlFor="styledSelect5">
               <select
                 id="styledSelect5"
@@ -420,12 +452,18 @@ function Survey() {
                 <option style={{ display: "none" }}>
                   Lütfen bir mekan seçiniz.
                 </option>
-
                 {getplace &&
-                  getplace.map((data) => (
-                    <option key={data.id}>{data["place_name"]}</option>
-                  ))}
-              </select>
+                  getplace.map((data) => {
+                    if ( values.place1 !== "") {
+                      let place = getplace.find((place)=>place["place_name"]===values.place1)
+                      values.place1_id = place.id
+                      console.log("hello")
+                    }
+
+                    return [(<option key={data.id} value={data["place_name"]} >{data["place_name"]}</option>)] 
+                  }
+                  )}
+                  </select>
             </label>
           </SurveyInner>
           <SurveyInner
@@ -445,9 +483,13 @@ function Survey() {
                   Lütfen bir mekan seçiniz.
                 </option>
                 {getplace &&
-                  getplace.map((data) => (
-                    <option key={data.id}>{data["place_name"]}</option>
-                  ))}
+                  getplace.map((data) => {
+                    if ( values.place2 !== "") {
+                      let place = getplace.find((place)=>place["place_name"]===values.place2)
+                      values.place2_id = place.id
+                    }
+                    return [(<option key={data.id} value={data["place_name"]} >{data["place_name"]}</option>)] 
+                  })}
               </select>
             </label>
           </SurveyInner>
@@ -468,9 +510,13 @@ function Survey() {
                   Lütfen bir mekan seçiniz.
                 </option>
                 {getplace &&
-                  getplace.map((data) => (
-                    <option key={data.id}>{data["place_name"]}</option>
-                  ))}
+                  getplace.map((data) => {
+                    if ( values.place3 !== "") {
+                      let place = getplace.find((place)=>place["place_name"]===values.place3)
+                      values.place3_id = place.id
+                    }
+                    return [(<option key={data.id} value={data["place_name"]} >{data["place_name"]}</option>)] 
+                  })}
               </select>
             </label>
           </SurveyInner>
@@ -491,9 +537,14 @@ function Survey() {
                   Lütfen bir mekan seçiniz.
                 </option>
                 {getplace &&
-                  getplace.map((data) => (
-                    <option key={data.id}>{data["place_name"]}</option>
-                  ))}
+                  getplace.map((data) => {
+                    if ( values.place4 !== "") {
+                      let place = getplace.find((place)=>place["place_name"]===values.place4)
+                      values.place4_id = place.id
+                      console.log("hello")
+                    }
+                    return [(<option key={data.id} value={data["place_name"]} >{data["place_name"]}</option>)] 
+                  })}
               </select>
             </label>
           </SurveyInner>
@@ -510,9 +561,14 @@ function Survey() {
                   Lütfen bir mekan seçiniz.
                 </option>
                 {getplace &&
-                  getplace.map((data) => (
-                    <option key={data.id}>{data["place_name"]}</option>
-                  ))}
+                  getplace.map((data) => {
+                    if ( values.place5 !== "") {
+                      let place = getplace.find((place)=>place["place_name"]===values.place5)
+                      values.place5_id = place.id
+                      console.log("hello")
+                    }
+                    return [(<option key={data.id} value={data["place_name"]} >{data["place_name"]}</option>)] 
+                  })}
               </select>
             </label>
           </SurveyInner>

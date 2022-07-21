@@ -17,6 +17,7 @@
   gap: 10px;
   align-items: center;
   justify-content: center;
+  z-index: 999999;
 }
 
 .navbar {
@@ -82,7 +83,7 @@
 
 .custom-select * {
   font-size: 18px;
-  background-color: #303236;
+  background-color: rgba(255,255,255,.6);
   font-weight: bold;
 }
 
@@ -97,8 +98,8 @@
   margin: 0;
   display: block;
   width: 100%;
-  padding: 12px 1vh 15px 2vh;
-  font-size: 20px;
+  padding: 17px 1vh 14px 2vh;
+  font-size: 18px;
   color: black;
   font-family: "Mulish", sans-serif;
   font-weight: 900;
@@ -124,12 +125,12 @@
 }
 
 .image-content {
-  width: 200px;
-  height: 200px;
+  width: 110px;
+  height: 90px;
   position: absolute;
   right: 0;
   bottom: 0;
-  z-index: 99;
+  z-index: 2;
   overflow: hidden;
 }
 
@@ -199,7 +200,7 @@ label::before {
 .weather {
   color: #fdd10c;
   background-color: rgba(24, 24, 24,.97);
-  border-radius: 3px;
+  border-radius: 5px;
   padding: 4px 10px;
 }
 
