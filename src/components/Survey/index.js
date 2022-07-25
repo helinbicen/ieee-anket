@@ -43,7 +43,6 @@ function Survey() {
     const db = getDatabase();
     set(ref(db, "users/" + user.uid + "_" + sendingTime), {
       userId: user.uid,
-      userEmail: user.email,
       userName: user.displayName,
       ...values,
     });
@@ -122,7 +121,6 @@ function Survey() {
       .get(cityUrl)
       .then((res) => {
         setCities(res.data["message"]);
-        console.log("city url", res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -239,8 +237,7 @@ function Survey() {
           <SurveyInner
             image={<img src={WdataLogo} alt="WNEXT" className="wdata-logo" />}
             bgTitle="Hoş geldin!"
-            mdTitle="WNEXT’in teknofest macerasında yapay zekanın bir parçası olmak için
-            lütfen yukarı kaydır."
+            mdTitle="Pusula'nın yapay zekasının eğitilmesine katkıda bulunmak için lütfen yukarı kaydır."
             prevButtonShow={false}
             swipeAnimation={true}
           />
@@ -254,7 +251,7 @@ function Survey() {
         </SwiperSlide>
         <SwiperSlide>
           <SurveyInner
-            mdTitle="Gezintiye başlamak için şehir ve ilçe seç."
+            mdTitle="Gezintiye başlamak için şehir ve ilçe seç. (İlçe sadece başlangıcı belirtir)"
             nextButtonShow={false}
             prevButtonShow={false}
           >
@@ -295,7 +292,7 @@ function Survey() {
             </label>
 
           </SurveyInner>
-          <SurveyInner mdTitle="Lütfen yaşını seç.">
+          <SurveyInner mdTitle="Lütfen yaş grubunu seç.">
             <label className="custom-select" htmlFor="styledSelect1">
               <select
                 id="styledSelect1"
@@ -304,6 +301,7 @@ function Survey() {
                 type="select"
                 onChange={handleChange}
               >
+                <option style={{ display: "none" }}></option>
                  {ageList &&
                   ageList.map((data,index) => {
                     if ( values.age !== "") {
@@ -347,7 +345,7 @@ function Survey() {
           </SurveyInner>
 
           <SurveyInner
-            mdTitle="Tatilini kiminle yapıyorsun?"
+            mdTitle="Geziyi kiminle yapıyorsun?"
             nextButtonShow={false}
             prevButtonShow={false}
           >
@@ -399,14 +397,13 @@ function Survey() {
         <SwiperSlide>
           <SurveyInner>
             <h1>
-              Hava şu an <span className="weather">{weather.weather}</span>{" "}
-              <span className="temperature">{weather.temperature}°C</span>
+              Havanın <span className="weather">{weather.weather} {weather.temperature}°C</span> olduğunu varsayalım
             </h1>
           </SurveyInner>
         </SwiperSlide>
 
         <SwiperSlide>
-          <SurveyInner mdTitle="Şimdi tatilinin temasına karar verme zamanı.">
+          <SurveyInner mdTitle="Şimdi gezinin temasına karar verme zamanı.">
             <label className="custom-select" htmlFor="styledSelect4">
               <select
                 id="styledSelect4"

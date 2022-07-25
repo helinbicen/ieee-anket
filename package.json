@@ -1,5 +1,6 @@
 {
   "name": "ieee-anket",
+  "homepage": "https://wdata.ieeeiuc.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
